@@ -1178,6 +1178,48 @@ static List<int> inferiorIndices(List<DuplicateCandidate> candidates) {
 - **已修**：设置页 `lib/page/setting/tabs/advanced_tab.dart` 的“单文件上限 48 MB”已改为 96 MB，并把说明里的源类型补全为 WebDAV / FTP / Google Drive，与代码及本文档一致。
 - **已核对一致的数字**：代理端口 18765-18774、OAuth 端口 53682（顺延至 53693）、OAuth 超时 10 分钟、代理首包预算 45 秒（原 25 秒，mpv 默认 60 秒）、上传分块 4 MB、文件头 2 MB、单文件兜底 96 MB、tag_cache 3000 条 / 512 MB、临时缓存 400 MB、启动补回封面 128 MB（每批 8 个）、递归扫描 5000 首 / 8 层、一键读取 2 并发、重试 3 次。以上均已在分支代码里逐项核对。
 
+## 📦 v1.0.0 发布记录（自定义分支首个 1.0）
+
+本分支（`feat/webdav-ftp-network-drive`）在累计完成网络媒体、封面 / 歌词、
+启动缓存、Google Drive 文件管理、播放链路修复与音乐库增强之后，正式以
+**1.0.0** 发布。这不是上游 `xiaobaimc/myune_music` 的官方版本，上游基线仍是
+v0.9.5；本仓库只是把自定义分支的版本号提升到 1.0.0 以便区分。
+
+### 版本号的落点
+
+| 文件 | 改动 |
+| --- | --- |
+| `pubspec.yaml` → `version:` | `0.9.5` → `1.0.0`（Flutter 构建时写入 Windows 可执行文件版本资源） |
+| `lib/page/setting/setting_page.dart` → `appVersion` | `0.9.5` → `1.0.0`（「设置 / 关于」页显示） |
+| `windows/runner/Runner.rc` | 不改，使用 `VERSION_AS_NUMBER` 宏，由 Flutter 从 `pubspec.yaml` 生成 |
+
+两处保持一致，避免出现「设置页 1.0.0、可执行文件 0.9.5」这类不一致。
+
+### 相对 `v0.9.5-network.1` 新增的能力
+
+- `v0.9.5-network.2`：修复 `avformat_open_input() failed`、网络歌曲详情、
+  网页 OAuth 登录稳定性，加固 Google Drive 上传续传。
+- `v0.9.5-network.3`：自动扫描本地 / 云端目录、音乐去重（自动 / 手动 / 勾选删除）、
+  静默无害的 `Immediate exit requested` 弹窗。
+- 详细代码位置与验证步骤见上文《网络媒体标签 / 封面修复说明》、
+  《启动后封面不自动显示修复记录》以及
+  《自动扫描目录 / 音乐去重（含勾选删除） / 无害弹窗静默》三节。
+
+### 发布制品
+
+GitHub Release tag `v1.0.0`：
+`https://github.com/XYkadicloud/myune_music/releases/tag/v1.0.0`
+
+Windows x64 压缩包内除程序本体（`myune_music.exe`、`libmpv.dll`、
+`rust_lib_myune_music.dll` 及 `data/`）之外，还包含：
+
+- `LICENSE`：Apache-2.0 全文（编译产物分发要求）
+- `RELEASE_NOTES.md`：版本说明、构建信息、已知限制与凭据说明
+
+Google 的 `client_id` / `client_secret` / `refresh_token` 不随程序分发，
+也不写入仓库或日志，只保存在使用者本机 `文档/myune_music/` 下。
+
+
 ## 🚀 从源码构建
 
 ### 环境要求
