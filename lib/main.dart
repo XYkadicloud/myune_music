@@ -1,17 +1,14 @@
-// NOTE：Flutter 3.47+ 的 material_ui / cupertino_ui 解耦
+// NOTE：Flutter 3.50 迁移完成：应用代码已改用 material_ui，见
 // https://docs.flutter.dev/release/breaking-changes/material-ui-and-cupertino-ui
-
-// 等待以下包或类似的替代品支持：
-// markdown_widget
-// silky_scroll
-// window_manager
-// mesh_gradient
+// 以下依赖仍用旧的 SDK 内置 Material 库，若 GitHub 构建报它们的类型
+// 冲突，先考虑升级这些包，或用 MaterialUiCompatibilityBridge 包一层：
+// markdown_widget / silky_scroll / window_manager / mesh_gradient /
 // scrollable_positioned_list
 
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:system_fonts/system_fonts.dart';
 import 'package:window_manager/window_manager.dart';
@@ -20,7 +17,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'hot_keys.dart';
 import 'theme/theme_provider.dart';
@@ -470,11 +466,7 @@ class _MyAppState extends State<MyApp> with TrayListener {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         Widget app = MaterialApp(
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
           supportedLocales: const [Locale('zh', 'CH'), Locale('en', 'US')],
           locale: const Locale('zh', 'CH'),
 
