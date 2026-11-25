@@ -2,6 +2,9 @@ name: Flutter Linux Build
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feat/webdav-ftp-network-drive
 
 jobs:
   build:
@@ -14,7 +17,7 @@ jobs:
       # 安装 Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.47.5'
+          flutter-version: '3.50.1'
 
       # 安装 Rust
       - name: Install Rust
@@ -41,6 +44,10 @@ jobs:
       # 拉依赖
       - name: Install dependencies
         run: flutter pub get
+
+      # 静态检查
+      - name: Analyze
+        run: flutter analyze
 
       # 构建 Linux 桌面版
       - name: Build Linux
