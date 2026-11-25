@@ -52,10 +52,10 @@ class LyricsHandler {
   Duration _lastKnownPosition = Duration.zero;
 
   LyricsHandler({
-    required SettingsProvider this._settingsProvider,
-    required NotificationService this._notificationService,
-    required VoidCallback this._notifyListeners,
-    required Song? Function() this._getCurrentSong,
+    required this._settingsProvider,
+    required this._notificationService,
+    required this._notifyListeners,
+    required this._getCurrentSong,
   });
 
   List<LyricLine> get currentLyrics => _currentLyrics;
