@@ -52,14 +52,11 @@ class LyricsHandler {
   Duration _lastKnownPosition = Duration.zero;
 
   LyricsHandler({
-    required SettingsProvider settingsProvider,
-    required NotificationService notificationService,
-    required VoidCallback notifyListeners,
-    required Song? Function() getCurrentSong,
-  }) : _settingsProvider = settingsProvider,
-       _notificationService = notificationService,
-       _notifyListeners = notifyListeners,
-       _getCurrentSong = getCurrentSong;
+    required SettingsProvider this._settingsProvider,
+    required NotificationService this._notificationService,
+    required VoidCallback this._notifyListeners,
+    required Song? Function() this._getCurrentSong,
+  });
 
   List<LyricLine> get currentLyrics => _currentLyrics;
   int get currentLyricLineIndex => _currentLyricLineIndex;
